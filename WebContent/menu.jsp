@@ -13,10 +13,10 @@
 <body>
     <header>
         <nav>
-            <a href="index.jsp" class="logo">BiteBlitz.</a>
+            <a href="index.jsp" class="logo">Bite<span>Blitz.</span></a>
             <ul class="nav-links">
                 <li><a href="index.jsp">Home</a></li>
-                <li><a href="menu">Menu</a></li>
+                <li class="active"><a href="menu">Menu</a></li>
                 <li><a href="history.jsp">Order History</a></li>
                 <li><a href="admin">Admin</a></li>
             </ul>
@@ -32,15 +32,22 @@
                 if (menuList != null && !menuList.isEmpty()) {
                     for (MenuItem item : menuList) { 
             %>
-            <div class="menu-card">
-                <h3><%= item.getItemName() %></h3>
-                <div class="price">₹<%= String.format("%.2f", item.getPrice()) %></div>
-                
-                <form action="order" method="post" class="order-form">
-                    <input type="hidden" name="itemId" value="<%= item.getId() %>">
-                    <input type="number" name="quantity" min="1" value="1" required>
-                    <button type="submit" class="btn btn-small">Order Now</button>
-                </form>
+             <div class="menu-card">
+                <% if(item.getImageUrl() != null && !item.getImageUrl().isEmpty()) { %>
+                    <div class="menu-image-container">
+                        <img src="<%= item.getImageUrl() %>" alt="<%= item.getItemName() %>" class="menu-image">
+                    </div>
+                <% } %>
+                <div class="menu-card-body">
+                    <h3><%= item.getItemName() %></h3>
+                    <div class="price">₹<%= String.format("%.2f", item.getPrice()) %></div>
+                    
+                    <form action="order" method="post" class="order-form">
+                        <input type="hidden" name="itemId" value="<%= item.getId() %>">
+                        <input type="number" name="quantity" min="1" value="1" required>
+                        <button type="submit" class="btn btn-small">Order Now</button>
+                    </form>
+                </div>
             </div>
             <% 
                     }

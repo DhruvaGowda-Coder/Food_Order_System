@@ -9,17 +9,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History | BiteBlitz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.jsp" class="logo">BiteBlitz.</a>
+            <a href="index.jsp" class="logo">Bite<span>Blitz.</span></a>
             <ul class="nav-links">
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="menu">Menu</a></li>
-                <li><a href="history.jsp">Order History</a></li>
+                <li class="active"><a href="history.jsp">Order History</a></li>
                 <li><a href="admin">Admin</a></li>
             </ul>
         </nav>
@@ -36,6 +36,7 @@
                     <th>Quantity</th>
                     <th>Total Amount</th>
                     <th>Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,13 +55,16 @@
                     <td><%= rs.getInt("quantity") %></td>
                     <td style="color: var(--primary); font-weight: bold;">₹<%= String.format("%.2f", rs.getDouble("total")) %></td>
                     <td><%= rs.getTimestamp("order_date") %></td>
+                    <td>
+                        <a href="receipt.jsp?id=<%= rs.getInt("order_id") %>" target="_blank" class="btn btn-small">Download Receipt</a>
+                    </td>
                 </tr>
             <% 
                     }
                     if (!hasOrders) {
             %>
                 <tr>
-                    <td colspan="5" class="text-center">No orders found.</td>
+                    <td colspan="6" class="text-center">No orders found.</td>
                 </tr>
             <%
                     }
@@ -70,6 +74,11 @@
             %>
             </tbody>
         </table>
+        
+        <div style="text-align: center; margin-top: 30px; display: flex; justify-content: center; gap: 1rem;">
+            <a href="total_receipt.jsp" target="_blank" class="btn">Download Total Receipt</a>
+            <a href="clear_history.jsp" class="btn btn-danger" onclick="return confirm('Are you sure you want to clear all order history? This cannot be undone.');">Clear All Orders</a>
+        </div>
     </div>
 </body>
 </html>

@@ -20,16 +20,18 @@ public class MenuServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<MenuItem> menuList = new ArrayList<>();
         
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM menu");
-             ResultSet rs = ps.executeQuery()) {
-            
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM menu";
+            var pstmt = conn.prepareStatement(sql);
+            var rs = pstmt.executeQuery();
+
             while (rs.next()) {
-                menuList.add(new MenuItem(
-                        rs.getInt("id"),
-                        rs.getString("item_name"),
-                        rs.getDouble("price")
-                ));
+                int id = rs.getInt("id");
+                String itemName = rs.getString("item_name");
+                double price = rs.getDouble("price");
+                String imageUrl = rs.getString("image_url");
+
+                menuList.add(new MenuItem(id, itemName, price, imageUrl));
             }
         } catch (Exception e) {
             e.printStackTrace();
