@@ -1,6 +1,9 @@
 $ErrorActionPreference = "Stop"
 
-$ProjectDir = "c:\Users\dhruv\Food Order System"
+$ProjectDir = $PSScriptRoot
+if (-not $ProjectDir) {
+    $ProjectDir = $PWD.ProviderPath
+}
 $ToolsDir = "$ProjectDir\.tools"
 if (-not (Test-Path $ToolsDir)) { New-Item -ItemType Directory -Path $ToolsDir | Out-Null }
 
