@@ -1,6 +1,5 @@
 .tools/
 food_order.db
-build_and_run.ps1
 README.md
 task.md
 walkthrough.md
