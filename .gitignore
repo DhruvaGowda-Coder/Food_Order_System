@@ -1,0 +1,9 @@
+.tools/
+food_order.db
+build_and_run.ps1
+README.md
+task.md
+walkthrough.md
+implementation_plan.md
+WebContent/WEB-INF/classes/
+WebContent/WEB-INF/lib/mysql-connector*.jar
