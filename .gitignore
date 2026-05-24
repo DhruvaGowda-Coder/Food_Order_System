@@ -7,3 +7,7 @@ walkthrough.md
 implementation_plan.md
 WebContent/WEB-INF/classes/
 WebContent/WEB-INF/lib/mysql-connector*.jar
+
+tools/
+lib/
+WebContent/WEB-INF/lib/sqlite-jdbc*
